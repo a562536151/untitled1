@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+    <mapper namespace="org.example.dao.CustomerMapper">
+
+        <!-- ?????? -->
+
+        <resultMap id="customerSimpleMap" type="Customer">
+
+            <!--  ???? -->
+
+            <id property="id" column="id"/>
+
+            <!--  ???? -->
+
+            <result property="name" column="name"/>
+
+            <result property="phone" column="phone"/>
+
+        </resultMap>
+
+        <!-- ?????? -->
+
+        <resultMap id="customerMap" type="Customer">
+
+            <!--  ???? -->
+
+            <id property="id" column="id"/>
+
+            <!--  ???? -->
+
+            <result property="name" column="name"/>
+
+            <result property="phone" column="phone"/>
+
+            <!-- ??addresses???<collection>??????????????????????? -->
+
+            <collection property="addresses" javaType="list" ofType="Address">
+
+                <id property="id" column="address_id"/>
+
+                <result property="street" column="street"/>
+
+                <result property="city" column="city"/>
+
+                <result property="country" column="country"/>
+
+            </collection>
+
+        </resultMap>
+
+        <!-- ??select???CustomerMapper????find()??????SQL?
+
+            ??????customerSimpleMap??????Customer??-->
+
+        <select id="find" resultMap="customerSimpleMap">
+
+            SELECT * FROM t_customer WHERE id = #{id:INTEGER}
+
+        </select>
+
+        <!-- ??select???CustomerMapper????findWithAddress()??????SQL?
+
+            ??????customerMap??????Customer??-->
+
+        <select id="findWithAddress" resultMap="customerMap">
+
+            SELECT c.*,a.id as address_id, a.* FROM t_customer as c join t_address as a
+
+            on c.id = a.customer_id
+
+            WHERE c.id = #{id:INTEGER}
+
+        </select>
+
+        <!-- CustomerMapper????findByOrderId()??????SQL?
+
+            ??????customerSimpleMap??????Customer??-->
+
+        <select id="findByOrderId" resultMap="customerSimpleMap">
+
+            SELECT * FROM t_customer as c join t_order as t
+
+            on c.id = t.customer_id
+
+            WHERE t.customer_id = #{id:INTEGER}
+
+        </select>
+
+        <!-- ??insert???CustomerMapper????save()??????SQL?
+
+            ????????id?????????Customer???id???-->
+
+        <insert id="save" keyProperty="id" useGeneratedKeys="true">
+
+            insert into t_customer (id, name, phone)
+
+            values (#{id},#{name},#{phone})
+
+        </insert>
+
+    </mapper>
+
+
