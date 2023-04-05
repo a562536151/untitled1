@@ -14,7 +14,7 @@ public class quickSort {
     }
 
 
-    public static void insertsort(int[] arr,int l,int r){
+/*    public static void insertsort(int[] arr,int l,int r){
         for(int i = 1;i<arr.length;i++){
             int j = i;
             while(j>=1&&arr[j]<arr[j-1]){
@@ -22,19 +22,19 @@ public class quickSort {
                 j--;
             }
         }
-    }
+    }*/
 
 
 
     public static void quickSorts(int[] arr,int l,int r){
         if(l>=r) return;
          int i = l,j = r;
-         if(r-l+1<=20){
+/*         if(r-l+1<=20){
              insertsort(arr,l,r);
              return;
          }
          int pivot = (int)random()%(r-l+1)+l;
-         swap(arr,pivot,l);
+         swap(arr,pivot,l);*/
         while(i<j){
             while(i<j&&arr[j]>=arr[l]) j--;
             while(i<j&&arr[i]<=arr[l]) i++;
